@@ -4,10 +4,8 @@ one:
   subject: MyString
   to: MyString
   body: MyText
-  user: one
 
 two:
   subject: MyString
   to: MyString
   body: MyText
-  user: two

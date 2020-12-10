@@ -1,9 +1,12 @@
+require 'pop_reader'
+
 class EmailsController < ApplicationController
   before_action :set_email, only: [:show, :edit, :update, :destroy]
 
   # GET /emails
   # GET /emails.json
   def index
+    ::PopReader.new.fetch_new_emails
     @emails = Email.all
   end
 
@@ -71,6 +74,6 @@ class EmailsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def email_params
-      params.require(:email).permit(:subject, :to, :body, :user_id)
+      params.require(:email).permit(:subject, :to, :from, :body)
     end
 end

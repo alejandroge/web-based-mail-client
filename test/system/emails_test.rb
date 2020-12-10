@@ -17,7 +17,6 @@ class EmailsTest < ApplicationSystemTestCase
     fill_in "Body", with: @email.body
     fill_in "Subject", with: @email.subject
     fill_in "To", with: @email.to
-    fill_in "User", with: @email.user_id
     click_on "Create Email"
 
     assert_text "Email was successfully created"
@@ -31,7 +30,6 @@ class EmailsTest < ApplicationSystemTestCase
     fill_in "Body", with: @email.body
     fill_in "Subject", with: @email.subject
     fill_in "To", with: @email.to
-    fill_in "User", with: @email.user_id
     click_on "Update Email"
 
     assert_text "Email was successfully updated"

@@ -17,7 +17,7 @@ class EmailsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create email" do
     assert_difference('Email.count') do
-      post emails_url, params: { email: { body: @email.body, subject: @email.subject, to: @email.to, user_id: @email.user_id } }
+      post emails_url, params: { email: { body: @email.body, subject: @email.subject, to: @email.to } }
     end
 
     assert_redirected_to email_url(Email.last)
@@ -34,7 +34,7 @@ class EmailsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update email" do
-    patch email_url(@email), params: { email: { body: @email.body, subject: @email.subject, to: @email.to, user_id: @email.user_id } }
+    patch email_url(@email), params: { email: { body: @email.body, subject: @email.subject, to: @email.to } }
     assert_redirected_to email_url(@email)
   end
 
