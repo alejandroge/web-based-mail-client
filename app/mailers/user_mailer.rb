@@ -3,6 +3,10 @@ class UserMailer < ApplicationMailer
 
   def user_created_email
     @email = params[:email]
-    mail(to: @email.to, subject: @email.subject)
+    mail(
+      from: Rails.application.credentials.google[:email],
+      to: @email.to,
+      subject: @email.subject
+    )
   end
 end
