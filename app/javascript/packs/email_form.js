@@ -9,6 +9,8 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'
 
+import MarkdownIt from 'markdown-it'
+
 Vue.use(TurbolinksAdapter)
 
 document.addEventListener('turbolinks:load', () => {
@@ -16,11 +18,19 @@ document.addEventListener('turbolinks:load', () => {
     el: '#app',
     data: () => {
       return {
-        to: "",
-        subject: "",
-        body: "",
-        message: 'Hello'
+        to: null,
+        subject: null,
+        body: null,
+        markdownParser: null,
       }
+    },
+    computed: {
+      compiledMarkdown() {
+        return this.markdownParser && this.markdownParser.render(this.body)
+      },
+    },
+    mounted() {
+      this.markdownParser = new MarkdownIt()
     },
     methods: {
       sendEmail() {
