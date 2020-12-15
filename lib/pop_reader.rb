@@ -30,19 +30,17 @@ class PopReader
 
 private
   def parse_text_email(mail)
-    subject = /Subject: (.*)\n/.match(mail).captures.first.strip
-    from = /From: (.*)\n/.match(mail).captures.first.strip
-    to = /To: (.*)\n/.match(mail).captures.first.strip
+    mail = Mail.read_from_string(mail)
 
-    boundary = /boundary=\"(.*)\"/.match(mail)&.captures&.first
-    body = /text\/plain; charset=\"UTF-8\"([\s\S]*)/s.match(mail)&.captures&.first
-    body = body&.split(/--#{boundary}/)&.first&.strip
+    body = mail.multipart? ?
+      mail.parts.detect { |p| p.content_type.include? 'text/plain' } :
+      mail
 
     return {
-      subject: subject,
-      to: to,
-      from: from,
-      body: body || 'failed to fetch body'
+      subject: mail.subject,
+      to: mail.to.first,
+      from: mail.from.first,
+      body: body&.decoded || 'failed to decode mail',
     }
   end
 
